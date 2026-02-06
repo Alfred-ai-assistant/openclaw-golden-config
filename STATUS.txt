@@ -1,0 +1,15 @@
+Golden Config Verified
+Date: 2026-02-06
+OpenClaw Version: 2026.1.30
+Node Version: v22.x
+OS: Windows Server (EC2)
+
+Gateway:
+- Started via run-gateway.ps1
+- Secrets pulled from AWS Secrets Manager
+- Listening on ws://127.0.0.1:18789
+- Telegram provider initialized
+- Web UI reachable
+
+This config is known-good.
+Do not modify without cloning.
