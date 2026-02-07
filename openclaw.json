@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.1.30",
+    "lastTouchedAt": "2026-02-06T21:00:00.000Z"
+  },
+
+  "wizard": {
+    "lastRunAt": "2026-02-02T20:18:57.371Z",
+    "lastRunVersion": "2026.1.30",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "moonshot/kimi-k2.5",
+        "fallbacks": []
+      },
+
+      "memorySearch": {
+        "enabled": true,
+        "provider": "local",
+        "local": {
+          "modelPath": "Xenova/all-MiniLM-L6-v2"
+        },
+        "experimental": {
+          "sessionMemory": true
+        }
+      },
+
+      "compaction": {
+        "memoryFlush": {
+          "enabled": true
+        }
+      },
+
+      "typingMode": "instant",
+      "maxConcurrent": 4,
+
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+
+  "messages": {
+    "ackReactionScope": "group-mentions",
+    "groupChat": {
+      "historyLimit": 8
+    }
+  },
+
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "dmHistoryLimit": 8,
+      "groupPolicy": "open",
+      "streamMode": "off"
+    }
+  },
+
+  "gateway": {
+    "mode": "local",
+    "bind": "loopback",
+
+    "auth": {
+      "mode": "token",
+      "token": "test-token-123"
+    }
+  },
+
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      }
+    }
+  }
+}
