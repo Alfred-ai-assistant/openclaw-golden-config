@@ -91,3 +91,26 @@ cd C:\dev\openclaw
 pnpm openclaw gateway install
 pnpm openclaw gateway start
 pnpm openclaw gateway status
+
+
+IMPORTANT:
+Feb 7 follow-up: Secrets not updating because PID didn’t change
+
+---
+
+## Follow-up (2026-02-07): Why “new secrets” weren’t visible after restart
+
+### Symptom
+- Added new keys in AWS Secrets Manager
+- Ran `pnpm openclaw gateway restart` or `schtasks /End` + `schtasks /Run`
+- Alfred still couldn’t see the new secrets
+
+### Root cause
+AWS secrets are injected into the **process environment at gateway start** (via `run-gateway.ps1`).
+If the **existing node.exe process remains alive** and keeps port `18789` bound, you did not actually restart the gateway process — so it continues using the old environment.
+
+### Proof / mental model
+> Secrets are loaded at process start. If the PID didn’t change, your secrets didn’t change.
+
+### Fix
+Ensure the old process is gone (PID on 18789 changes). In our setup, `run-gateway.ps1` now force-kills any PID holding port 18789 before launching the gateway, which makes restarts reliably pick up new AWS secrets.
